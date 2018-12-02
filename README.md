@@ -27,6 +27,10 @@ Hit `/auth_control/auth/` endpoint to generate token and `/services_control/todo
  - [https://stackoverflow.com/questions/27301557/if-you-can-decode-jwt-how-are-they-secure](https://stackoverflow.com/questions/27301557/if-you-can-decode-jwt-how-are-they-secure)
  - [https://stackoverflow.com/questions/23808460/jwt-json-web-token-library-for-java](https://stackoverflow.com/questions/23808460/jwt-json-web-token-library-for-java)
  
+ ### License
+ 
+ [MIT](https://github.com/nileshprasad137/jjwt-jaxrs-sample/blob/master/LICENSE)
+ 
 
 
  
