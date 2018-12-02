@@ -44,7 +44,7 @@ public class JWTTokenNeededFilter implements ContainerRequestFilter, ContainerRe
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
-
+ 
         // Get the HTTP Authorization header from the request
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
         System.out.println(authorizationHeader);
@@ -63,10 +63,16 @@ public class JWTTokenNeededFilter implements ContainerRequestFilter, ContainerRe
          * Check if the token was issued by the server and if it's not expired
          * Throw an Exception if the token is invalid
          */
-        
+        Boolean is_token_valid = false;
         try {
         	
-        	System.out.println("is token valid?? :" + TokenServices.isTokenValid(token));
+        	is_token_valid = TokenServices.isTokenValid(token);
+        	System.out.println("is token valid?? :" + is_token_valid);
+        	//	IF TOKEN IS NOT VALID, ABORT REQUEST AND DON'T LET USER ACCESS REST ENDPOINT
+        	if(!is_token_valid) {
+        		requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+        	}
+        	// check
         	
         }
         catch(Exception ex) {

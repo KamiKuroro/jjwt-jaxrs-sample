@@ -22,6 +22,10 @@ public class TokenServices {
 	private static Key generatedKey = MacProvider.generateKey(SignatureAlgorithm.HS256);
 	private static byte keyData[] = generatedKey.getEncoded();
 	private static final Key signingKey = new SecretKeySpec(keyData, SignatureAlgorithm.HS256.getJcaName());
+	
+//	String key = "random_secret_key";
+//	String base64Key = DatatypeConverter.printBase64Binary(key.getBytes());
+//	byte[] secretBytes = DatatypeConverter.parseBase64Binary(base64Key);
 //	private static final Key signingKey = new SecretKeySpec(
 //		DatatypeConverter.parseBase64Binary(System.getenv(KeyConstants.SECRET_KEY_JWT)), SignatureAlgorithm.HS512.getJcaName()
 //	);
@@ -56,13 +60,28 @@ public class TokenServices {
 			Claims claims = Jwts.parser().setSigningKey(signingKey).parseClaimsJws(token).getBody();
 			System.out.println(claims.getSubject());
 			
-		}
+		}		
+		catch(ExpiredJwtException expiredException) {
+			System.out.println("expired exception");
+			//	Redirect to get new token and handle all scenarios
+			return false;
+			
+		}		
 		catch(Exception ex) {
 			System.out.println(ex);
 			System.out.println("----------------------------------------------------------------------------------");
 			ex.printStackTrace();
 			return false;
 		}
+		/**
+		 * 	ClaimJwtException: thrown after a validation of a JTW claim failed
+		 *	ExpiredJwtException: indicating that a JWT was accepted after it expired and must be rejected
+		 *	MalformedJwtException: thrown when a JWT was not correctly constructed and should be rejected
+		 *	PrematureJwtException: indicates that a JWT was accepted before it is allowed to be accessed and must be rejected
+		 *	SignatureException: indicates that either calculating a signature or verifying an existing signature of a JWT failed
+		 *	UnsupportedJwtException: thrown when receiving a JWT in a particular format/configuration that does not match the format expected by the application. 
+		 *		For example, this exception would be thrown if parsing an unsigned plaintext JWT when the application requires a cryptographically signed Claims JWS instead
+		 */
 		
 		
 		return true;

@@ -58,7 +58,7 @@ public class AuthEndpoint {
 	
 	private String createToken(String username) {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.SECOND, 1800);
+		cal.add(Calendar.SECOND, 60);
 		return TokenServices.createToken(username, cal.getTimeInMillis());
 	}
 	
