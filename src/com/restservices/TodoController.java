@@ -1,6 +1,7 @@
 package com.restservices;
 
 
+import com.globalkeys.KeyConstants;
 import com.jwtfilter.JWTTokenNeeded;
 import com.jwtfilter.Test;
 
@@ -36,9 +37,9 @@ public class TodoController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
 	public Response listTodoItems() {
-//		System.out.println("token in todo::"+token);
 		Test obj = new Test();
 		obj.printTest();
+		
 		return Response.ok().build();
 	}
 

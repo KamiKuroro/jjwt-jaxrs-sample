@@ -11,42 +11,7 @@
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-	<servlet>
-		<servlet-name>RESTful Jersey Hello World Service</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>resourceapis</param-value>
-		</init-param>
-		<init-param>
-			<param-name>jersey.config.server.provider.classnames</param-name>
-			<param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
-		</init-param>		
-		<!-- Register my custom provider (not needed if it's in my.package) AND LoggingFilter. -->
-        <init-param>
-            <param-name>jersey.config.server.provider.classnames</param-name>
-            <param-value>com.jwtfilter.JWTTokenNeededFilter</param-value>
-        </init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet>
-		<servlet-name>AuthTest</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>Auth</param-value>
-		</init-param>
-		<init-param>
-			<param-name>jersey.config.server.provider.classnames</param-name>
-			<param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
-		</init-param>
-		 <init-param>
-            <param-name>jersey.config.server.provider.classnames</param-name>
-            <param-value>com.jwtfilter.JWTTokenNeededFilter</param-value>
-        </init-param>        
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+	</welcome-file-list>	
 	<servlet>
 		<servlet-name>AuthEndPoint</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -81,15 +46,7 @@
             <param-value>com.jwtfilter.JWTTokenNeededFilter</param-value>
         </init-param>        
 		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RESTful Jersey Hello World Service</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>AuthTest</servlet-name>
-		<url-pattern>/Auth/*</url-pattern>
-	</servlet-mapping>
+	</servlet>	
 	<servlet-mapping>
 		<servlet-name>AuthEndPoint</servlet-name>
 		<url-pattern>/auth_control/*</url-pattern>

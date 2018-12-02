@@ -1,8 +1,16 @@
 package com.jwtfilter;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.TextCodec;
+import io.jsonwebtoken.security.Keys;
 
-import com.utils.KeyGenerator;
+import com.auth.TokenServices;
+import com.globalkeys.KeyConstants;
+//import org.apache.commons.codec.binary.Base64;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
@@ -28,23 +36,9 @@ import java.util.logging.Logger;
 @Provider
 @JWTTokenNeeded
 public class JWTTokenNeededFilter implements ContainerRequestFilter, ContainerResponseWriter {
-
-//    // ======================================
-//    // =          Injection Points          =
-//    // ======================================
-//
-//    @Inject
-//    private Logger logger;
-//
-//    @Inject
-//    private KeyGenerator keyGenerator;
-//
-//    // ======================================
-//    // =          Business methods          =
-//    // ======================================
 	
 	public JWTTokenNeededFilter(){
-		System.out.println("hello");
+		System.out.println("JWT Token Filter Initialized");
 	}
 	
 
@@ -54,8 +48,7 @@ public class JWTTokenNeededFilter implements ContainerRequestFilter, ContainerRe
         // Get the HTTP Authorization header from the request
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
         System.out.println(authorizationHeader);
-//        logger.info("#### authorizationHeader : " + authorizationHeader);
-
+        System.out.println(KeyConstants.SECRET_KEY_JWT);
         // Check if the HTTP Authorization header is present and formatted correctly
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             System.out.println("#### invalid authorizationHeader : " + authorizationHeader);
@@ -70,16 +63,30 @@ public class JWTTokenNeededFilter implements ContainerRequestFilter, ContainerRe
          * Check if the token was issued by the server and if it's not expired
          * Throw an Exception if the token is invalid
          */
+        
+        try {
+        	
+        	System.out.println("is token valid?? :" + TokenServices.isTokenValid(token));
+        	
+        }
+        catch(Exception ex) {
+        	ex.printStackTrace();
+        }
+        
 
 //        try {
 //
 //            // Validate the token
-//            Key key = keyGenerator.generateKey();
-//            Jwts.parser().setSigningKey(key).parseClaimsJws(token);
+//            Key signingkey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+//            Jwt<?, ?> jwt = Jwts.parser().setSigningKey(signingkey).parseClaimsJws(token);
+//            System.out.println("jwt.getBody():"+jwt.getBody());
+//            System.out.println("jwt.getBody():"+jwt.getBody());
 //            logger.info("#### valid token : " + token);
-//
+
 //        } catch (Exception e) {
-//            logger.severe("#### invalid token : " + token);
+////            logger.severe("#### invalid token : " + token);
+//        	System.out.println(e);
+////        	e.printStackTrace();
 //            requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 //        }
     }
