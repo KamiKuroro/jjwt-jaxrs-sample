@@ -13,24 +13,28 @@ import io.jsonwebtoken.impl.crypto.MacProvider;
 import java.security.Key;
 import java.util.Date;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 import com.globalkeys.KeyConstants;
 
 
 public class TokenServices {
 	
-	private static Key generatedKey = MacProvider.generateKey(SignatureAlgorithm.HS256);
-	private static byte keyData[] = generatedKey.getEncoded();
-	private static final Key signingKey = new SecretKeySpec(keyData, SignatureAlgorithm.HS256.getJcaName());
+//	private static Key generatedKey = MacProvider.generateKey(SignatureAlgorithm.HS256);
+//	private static byte keyData[] = generatedKey.getEncoded();
+//	private static final Key signingKey = new SecretKeySpec(keyData, SignatureAlgorithm.HS256.getJcaName());
 	
-//	String key = "random_secret_key";
-//	String base64Key = DatatypeConverter.printBase64Binary(key.getBytes());
-//	byte[] secretBytes = DatatypeConverter.parseBase64Binary(base64Key);
-//	private static final Key signingKey = new SecretKeySpec(
-//		DatatypeConverter.parseBase64Binary(System.getenv(KeyConstants.SECRET_KEY_JWT)), SignatureAlgorithm.HS512.getJcaName()
-//	);
+	private static String key = KeyConstants.SECRET_KEY_JWT;
+	private static String base64Key = DatatypeConverter.printBase64Binary(key.getBytes());
+	private static byte[] secretBytes = DatatypeConverter.parseBase64Binary(base64Key);	
+	private static final Key signingKey = new SecretKeySpec(
+			secretBytes, SignatureAlgorithm.HS256.getJcaName()
+	);
+	// GOOOD
 	
 	public static String createToken(String username,long expired) {
+		System.out.println(base64Key);
+		System.out.println(secretBytes.length);
 		String token =  Jwts.builder()
 					.setSubject(username)
 					.signWith(TokenServices.signingKey)
