@@ -20,6 +20,7 @@ Hit `/auth_control/auth/` endpoint to generate token and `/services_control/todo
 
 ### References:
 
+ - [Token Authentication for Java Applications](https://www.youtube.com/watch?v=sv0TUiYVimw)
  - [https://github.com/agoncal/agoncal-sample-jaxrs/tree/master/04-JWT](https://github.com/agoncal/agoncal-sample-jaxrs/tree/master/04-JWT)
  - [https://stackoverflow.com/questions/26777083/best-practice-for-rest-token-based-authentication-with-jax-rs-and-jersey](https://stackoverflow.com/questions/26777083/best-practice-for-rest-token-based-authentication-with-jax-rs-and-jersey)
  - [https://stackoverflow.com/questions/31309759/what-is-secret-key-for-jwt-based-authentication-and-how-to-generate-it/31313582](https://stackoverflow.com/questions/31309759/what-is-secret-key-for-jwt-based-authentication-and-how-to-generate-it/31313582)
